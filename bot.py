@@ -6,7 +6,7 @@ oldLcsStandings = "https://web.archive.org/web/20200619002145/https://lol.gamepe
 lecStandings = "https://lol.gamepedia.com/LEC/2020_Season/Summer_Season"
 lcsStandings = "https://lol.gamepedia.com/LCS/2020_Season/Summer_Season"
 
-week = "6th"
+week = "10th"
 
 TEAM_NAMES = {
     "Dignitas": "DIG",
@@ -68,8 +68,8 @@ ROLE_MODIFIERS = {
 
 TEAM_STANDINGS = {}
 
-FORBIDDEN = ["Huni", "Meteos", "Stunt", "Deftly", "Ronaldo", "Goldenglue", "Wind", "Eika", "Froggen", "Potluck", "Soaz", "P1noy", "Ruin"]
+FORBIDDEN = ["Meteos", "Stunt", "Deftly", "Ronaldo", "Wind", "Eika", "Froggen", "Potluck", "Soaz", "P1noy", "Deus", "Jiizuke", "Destiny", "Kumo", "Biofrost", "Mash", "Lourlo", "Nji", "Akaadian"]
 
-WANTED = ["Zven", "Blaber", "Humanoid"]
+WANTED = ['Santorin', 'PowerOfEvil', 'WildTurtle']
 
-picks.mostImportantFirst(lecStandings, lcsStandings, TEAM_STANDINGS, TEAM_NAMES, week, ROLE_MODIFIERS, DATA, FORBIDDEN, WANTED)
+picks.mostImportantFirst2(lecStandings, lcsStandings, TEAM_STANDINGS, TEAM_NAMES, week, ROLE_MODIFIERS, DATA, FORBIDDEN, WANTED)

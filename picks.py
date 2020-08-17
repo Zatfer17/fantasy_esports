@@ -199,7 +199,7 @@ def mostLikely(TEAM_STANDINGS):
     for role in ROLES:
         sortedArray = sorted(role, key=lambda x: x[3])
         print(sortedArray)
-        bestInRole.append(sortedArray[:10])
+        bestInRole.append(sortedArray[:15])
 
     combos = []
 
@@ -233,6 +233,61 @@ def mostImportantFirst(lecStandings, lcsStandings, TEAM_STANDINGS, TEAM_NAMES, w
     ADC = data.parseRole("adc", week, TEAM_STANDINGS, ROLE_MODIFIERS, DATA)
     SUPP = data.parseRole("supp", week, TEAM_STANDINGS, ROLE_MODIFIERS, DATA)
     TEAMS = data.parseTeam("teams", week, TEAM_STANDINGS, ROLE_MODIFIERS, DATA)
+    ROLES = [TOP, JNG, MID, ADC, SUPP, TEAMS]
+
+    bestInRole = []
+
+    for role in ROLES:
+        sortedArray = sorted(role, key=lambda x: x[3], reverse=True)
+        bestInRole.append(sortedArray[:12])
+        print(sortedArray)
+
+    combos = []
+
+    for toplaner in bestInRole[0]:
+        for jungler in bestInRole[1]:
+            for midlaner in bestInRole[2]:
+                for adcarry in bestInRole[3]:
+                    for support in bestInRole[4]:
+                        for squad in bestInRole[5]:
+                            mostImportant = midlaner[2] + adcarry[2] + squad[2]
+                            totalPoints = toplaner[2] + jungler[2] + midlaner[2] + adcarry[2] + support[2] + squad[2]
+                            totalPrice = toplaner[1] + jungler[1] + midlaner[1] + adcarry[1] + support[1] + squad[1]
+                            totalSafety = toplaner[4] + jungler[4] + midlaner[4] + adcarry[4] + support[4] + squad[4]
+                            imbalance = mostImportant / totalPoints
+                            names = [toplaner[0], jungler[0], midlaner[0], adcarry[0], support[0], squad[0]]
+                            if totalPrice < 1500 and notForbidden(names, FORBIDDEN):
+                                combos.append([names, totalPoints, totalSafety, mostImportant, totalPrice, imbalance])
+
+
+    print("Best combos overall")
+    bestCombos = sorted(combos, key=lambda x: x[1], reverse=True)
+    print(bestCombos[:10])
+    print("----")
+    print("Safest combos")
+    safestCombos = sorted(combos, key=lambda x: x[2], reverse=True)
+    safestCombos = safestCombos[:15]
+    safestCombos = sorted(safestCombos, key=lambda x: x[1], reverse=True)
+    print(safestCombos[:10])
+    print("----")
+    print("Best combos with best relevant roles")
+    mostImportantCombos = sorted(combos, key=lambda x: x[3], reverse=True)
+    print(mostImportantCombos[:10])
+    print("----")
+    print("Most balanced combos")
+    mostBalancedCombos = sorted(combos, key=lambda x: x[5], reverse=False)
+    print(mostBalancedCombos[:10])
+
+def mostImportantFirst2(lecStandings, lcsStandings, TEAM_STANDINGS, TEAM_NAMES, week, ROLE_MODIFIERS, DATA, FORBIDDEN, WANTED):
+
+    data.updateStandings(lecStandings, lcsStandings, TEAM_STANDINGS, TEAM_NAMES)
+
+    TOP = data.parseRole2("top", week, TEAM_STANDINGS, ROLE_MODIFIERS, DATA)
+    JNG = data.parseRole2("jng", week, TEAM_STANDINGS, ROLE_MODIFIERS, DATA)
+    MID = data.parseRole2("mid", week, TEAM_STANDINGS, ROLE_MODIFIERS, DATA)
+    ADC = data.parseRole2("adc", week, TEAM_STANDINGS, ROLE_MODIFIERS, DATA)
+    SUPP = data.parseRole2("supp", week, TEAM_STANDINGS, ROLE_MODIFIERS, DATA)
+    TEAMS = data.parseTeam2("teams", week, TEAM_STANDINGS, ROLE_MODIFIERS, DATA)
     ROLES = [TOP, JNG, MID, ADC, SUPP, TEAMS]
 
     bestInRole = []
